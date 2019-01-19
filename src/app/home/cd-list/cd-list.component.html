@@ -1,0 +1,29 @@
+<form [formGroup]="myForm" (ngSubmit)="onSearch(myForm)" autocomplete="off" class="form-inline">
+  <input matInput style="margin-bottom: 8px;margin-left: 15px;" class="form-control" [matDatepicker]="stdate"
+         placeholder="Choose a start date" formControlName='startDate'>
+  <mat-datepicker-toggle matSuffix [for]="stdate"></mat-datepicker-toggle>
+  <mat-datepicker #stdate></mat-datepicker>
+
+  <input matInput style="margin-bottom: 8px;margin-left: 8px;" class="form-control" [matDatepicker]="eddate"
+         formControlName='endDate' placeholder="Choose an end date">
+  <mat-datepicker-toggle matSuffix [for]="eddate"></mat-datepicker-toggle>
+  <mat-datepicker #eddate></mat-datepicker>
+
+  <div class="form-group mx-sm-3 mb-2">
+    <input type="text" class="form-control" style="margin-right: 8px" id="search" placeholder="Search"
+           formControlName="search">
+    <select class="custom-select" formControlName="filter">
+      <option value="name">Name</option>
+      <option value="gender">Gender</option>
+    </select>
+  </div>
+  <button type="button" (click)="reset()" class="btn btn-danger mb-2" style="margin-right: 8px">Reset</button>
+  <button type="button" (click)="onLoad()" class="btn btn-primary mb-2" style="margin-right: 8px">Load All</button>
+  <button type="submit" class="btn btn-primary mb-2">Search</button>
+</form>
+<table class="table table-hover">
+  <tr *ngFor="let c of service.cdList">
+    <app-cd-element (deleteClicked)="onDelete($event)" [c]="c"></app-cd-element>
+  </tr>
+</table>
+
